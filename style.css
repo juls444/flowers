@@ -79,6 +79,7 @@ h2 {
   display: flex; /* Включаем Flexbox */
   flex-wrap: wrap; /* Разрешаем перенос элементов на новую строку */
   justify-content: space-around; /* Равномерное распределение элементов по ширине контейнера */ 
+  gap: 20px;
   
   /* flex: 1;
     display: grid;
@@ -88,7 +89,6 @@ h2 {
     /* padding: 20px; */
     /* grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); */
     /* grid-template-columns: repeat(auto-fit, minmax(250px, max-content)); */
-    gap: 20px;
     /* width: 33.333%; */
 }
 
