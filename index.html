@@ -1025,13 +1025,127 @@
                     </div>
                     <div class="cart-form">
                         <label for="input" data-redactor-toolbar="no">Ваше имя</label>
-                        <input type="text" id="customer-name" placeholder="Ваше имя">
+                        <input type="text" id="customer-name" class="t-input js-tilda-rule" placeholder="Как вас зовут?"
+                            style="border:1px solid #c7c7c7;">
                         <label for="input" data-redactor-toolbar="no">Номер телефона</label>
-                        <input type="tel" id="customer-phone" placeholder="Номер телефона">
+                        <div class=" t-input-group t-input-group_ph " data-input-lid="0949215262980"
+                            data-field-type="ph">
+                            <div class="t-input-block ">
+                                <input type="tel" autocomplete="tel" name="Phone" id="customer-phone"
+                                    data-phonemask-init="no" data-phonemask-id="854715526"
+                                    data-phonemask-lid="0949215262980" data-phonemask-maskcountry="RU"
+                                    class="t-input js-phonemask-input js-tilda-rule" value=""
+                                    placeholder="+7(999)999-99-99" data-tilda-req="1" aria-required="true"
+                                    aria-describedby="error_0949215262980" style="border:1px solid #c7c7c7;">
+                                <!-- id="customer-phone" -->
+                                <script type="text/javascript">
+                                    const phoneInput = document.getElementById('customer-phone');
+
+                                    phoneInput.addEventListener('input', function (e) {
+                                        let value = e.target.value;
+                                        // Удаляем все нецифровые символы, кроме +
+                                        value = value.replace(/[^\d+]/g, '');
+                                        if (value[0] != '+') {
+                                            value = '+' + value
+                                        }
+                                        // Ограничиваем длину до 12 символов, включая +
+                                        if (value.length > 12) {
+                                            value = value.slice(0, 12);
+                                        }
+
+                                        let x = value.replace(/\D/g, '').match(
+                                            /^(\d{1})(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})$/);
+                                        if (!x) {
+                                            e.target.value = value;
+                                            return;
+                                        }
+
+
+                                        let formattedValue = "+" + x[1] + (x[2] ? "(" + x[2] : "");
+                                        formattedValue += (x[3] ? ")" + x[3] : "");
+                                        formattedValue += (x[4] ? "-" + x[4] : "");
+                                        formattedValue += (x[5] ? "-" + x[5] : "");
+                                        e.target.value = formattedValue;
+                                    });
+
+                                    // Добавляем '+7' при фокусе на поле ввода, если поле пустое
+                                    phoneInput.addEventListener('focus', function (e) {
+                                        if (e.target.value.length === 0) {
+                                            e.target.value = "+7";
+                                        }
+                                    });
+
+                                    // Убираем '+7', если поле ввода пустое и теряется фокус
+                                    phoneInput.addEventListener('blur', function (e) {
+                                        if (e.target.value === "+7") {
+                                            e.target.value = "";
+                                        }
+                                    });
+                                </script>
+                            </div>
+                        </div>
+
+                        <label>Самовывоз
+                            <input style="display: inline-block;  width:auto" type="radio" name="deliveryMethod"
+                                value="pickup" checked>
+                        </label>
+                        <label>Доставка
+                            <input style="display: inline-block;  width:auto" type="radio" name="deliveryMethod"
+                                value="delivery">
+                        </label>
+
+
+                        <div id="deliveryAddressFields" class="hidden">
+                            <label for="customer-street">Улица:</label>
+                            <input type="text" id="customer-street" class="t-input js-phonemask-input js-tilda-rule"
+                                name="Street" placeholder="Название улицы">
+
+                            <label for="customer-house">Дом:</label>
+                            <input type="text" id="customer-house" class="t-input js-phonemask-input js-tilda-rule"
+                                name="House" placeholder="Номер дома">
+
+                            <label for="customer-apartment">Квартира:</label>
+                            <input type="text" id="customer-apartment" class="t-input js-phonemask-input js-tilda-rule"
+                                name="Apartment" placeholder="Номер квартиры">
+
+
+                            <script>
+                                const deliveryMethodRadios = document.querySelectorAll('input[name="deliveryMethod"]');
+                                const deliveryAddressFields = document.getElementById('deliveryAddressFields');
+
+                                deliveryMethodRadios.forEach(radio => {
+                                    radio.addEventListener('change', function () {
+                                        if (this.value === 'delivery') {
+                                            deliveryAddressFields.classList.remove('hidden');
+                                        } else {
+                                            deliveryAddressFields.classList.add('hidden');
+                                        }
+                                    });
+                                });
+                            </script>
+                            <style>
+                                .hidden {
+                                    display: none;
+                                }
+
+                                label {
+                                    vertical-align: middle;
+                                    /* Выравниваем текст по середине элемента label */
+                                }
+
+                                .radio-group {
+                                    display: flex;
+                                    /* Включаем flexbox для группы радиокнопок */
+                                    align-items: center;
+                                    /* Выравниваем элементы по вертикали по центру */
+                                }
+                            </style>
+                        </div>
                         <div class="cart-total">
                             <p id="cart-total-price-form">Сумма: 0 р.</p>
                         </div>
                         <button class="checkout-button" id="checkout-button">Оформить заказ</button>
+
                     </div>
                 </div>
             </div>
